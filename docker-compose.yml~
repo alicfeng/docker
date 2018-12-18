@@ -14,6 +14,9 @@ services:
       # certificates
       #- ./srv/nginx/certificate/214888618570699.pem:/etc/nginx/server.pem:ro
       #- ./srv/nginx/certificate/214888618570699.key/:/etc/nginx/server.key:ro
+      # logs
+      - ./srv/nginx/logs/error.log:/var/log/nginx/error.log
+      - ./srv/nginx/logs/access.log:/var/log/nginx/access.log
     links:
       - fpm:__DOCKER_PHP_FPM__
 
