@@ -26,8 +26,8 @@ services:
     ports:
       - 9000:9000
     volumes:
-      - /srv/docker/www/default/:/usr/share/nginx/html/
-      - /srv/docker/www/:/www/
+      - ./srv/www/default/:/usr/share/nginx/html/
+      - ./srv/www/:/www/
       #- /srv/docker/php-fpm/php.ini-production:/usr/local/etc/php/php.ini:ro
     links:
       - mysql:mysql
@@ -38,8 +38,8 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - /srv/docker/mysql:/var/lib/mysql
-      - /srv/docker/mysql/my.cnf:/etc/mysql/my.cnf
+      - ./srv/mysql/data:/var/lib/mysql
+      - ./srv/mysql/config/my.cnf:/etc/mysql/my.cnf
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: samego
