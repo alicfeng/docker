@@ -16,10 +16,11 @@ services:
       #- ./srv/nginx/certificate/214888618570699.key/:/etc/nginx/server.key:ro
     links:
       - fpm:__DOCKER_PHP_FPM__
+    restart: always
 
   fpm:
     container_name: php
-    image: php:7.1-fpm
+    image: php:7.2-fpm
     ports:
       - 9000:9000
     volumes:
@@ -28,17 +29,30 @@ services:
       #- /srv/docker/php-fpm/php.ini-production:/usr/local/etc/php/php.ini:ro
     links:
       - mysql:mysql
+    restart: always
 
   mysql:
     container_name: mysql
-    image: mysql:5.6
+    image: mysql:5.7
     ports:
       - 3306:3306
     volumes:
-      - ./srv/mysql/data:/var/lib/mysql
+      - ./data/mysql:/var/lib/mysql
       - ./srv/mysql/config/my.cnf:/etc/mysql/my.cnf
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: samego
       MYSQL_USER: samego
       MYSQL_PASSWORD: samego
       MYSQL_DATABASE: samego
+    restart: always
+    
+  redis:
+    container_name: redis
+    image: redis:4.0.12
+    command: ["redis-server", "/etc/redis/redis.conf","--appendonly", "yes"]
+    ports:
+      - 6379:6379
+    volumes:
+      - ./data/redis:/data
+      - ./srv/redis/redis.conf:/etc/redis/redis.conf:ro
+    restart: always
