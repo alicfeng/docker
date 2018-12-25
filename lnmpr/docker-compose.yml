@@ -51,7 +51,7 @@ services:
     image: redis:4.0.12
     command: ["redis-server", "/etc/redis/redis.conf","--appendonly", "yes"]
     ports:
-      - 6379:6379
+      - 6389:6379
     volumes:
       - ./data/redis:/data
       - ./srv/redis/redis.conf:/etc/redis/redis.conf:ro
