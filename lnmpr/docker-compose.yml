@@ -7,11 +7,15 @@ services:
       - 80:80
       - 443:443
     volumes:
+      ## supervisor
+      - ./srv/supervisor/supervisor.d/:/etc/supervisor/supervisor.d/
+      ## volumes for nginx
       - ./srv/nginx/nginx.conf/:/usr/local/nginx/nginx.conf:ro
-      - ./srv/php/php-fpm.conf/:/usr/local/php/etc/php-fpm.conf:ro
-      - ./srv/php/php.ini-production:/usr/local/php/lib/php.ini:ro
       - ./srv/nginx/conf.d:/usr/local/nginx/conf.d
       - /www/api.yi-insurance.com:/www/api.yi-insurance.com
+      ## volumes for php
+      - ./srv/php/php-fpm.conf/:/usr/local/php/etc/php-fpm.conf:ro
+      - ./srv/php/php.ini-production:/usr/local/php/lib/php.ini:ro
     restart: always
 
   mysql:
@@ -23,10 +27,10 @@ services:
       - /data/mysql:/var/lib/mysql
       - ./srv/mysql/config/my.cnf:/etc/mysql/my.cnf
     environment:
-      MYSQL_ROOT_PASSWORD: 123!@#qwe
-      MYSQL_USER: tsb
-      MYSQL_PASSWORD: 123!@#qwe
-      MYSQL_DATABASE: tsb_dev
+      MYSQL_ROOT_PASSWORD: samego
+      MYSQL_USER: samego
+      MYSQL_PASSWORD: samego
+      MYSQL_DATABASE: samego
     restart: always
     
   redis:
