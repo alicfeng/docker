@@ -1,37 +1,17 @@
 version: "2"
 services:
-  nginx:
-    container_name: nginx
-    image: library/nginx:alpine
+  nginx-php:
+    container_name: nginx-php
+    image: alicfeng/nginx-php-supervisor:php.7.1.4
     ports:
       - 80:80
       - 443:443
-      - 8881:8881
     volumes:
-      - ./srv/www/default/:/usr/share/nginx/html/
-      - ./srv/www/:/www/
-      - /home/alic/tutorial/gogs/api.yi-insurance.com:/www/api.yi-insurance.com
-      - ./srv/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./srv/nginx/conf.d/:/etc/nginx/conf.d/:ro
-      # certificates
-      #- ./srv/nginx/certificate/214888618570699.pem:/etc/nginx/server.pem:ro
-      #- ./srv/nginx/certificate/214888618570699.key/:/etc/nginx/server.key:ro
-    links:
-      - fpm:__DOCKER_PHP_FPM__
-    restart: always
-
-  fpm:
-    container_name: php7-fpm
-    image: alicfeng/php-fpm:7.2.13
-    ports:
-      - 9000:9000
-    volumes:
-      - ./srv/www/default/:/usr/share/nginx/html/
-      - ./srv/www/:/www/
-      - /home/alic/tutorial/gogs/api.yi-insurance.com:/www/api.yi-insurance.com
-      #- /srv/docker/php-fpm/php.ini-production:/usr/local/etc/php/php.ini:ro
-    links:
-      - mysql:mysql
+      - ./srv/nginx/nginx.conf/:/usr/local/nginx/nginx.conf:ro
+      - ./srv/php/php-fpm.conf/:/usr/local/php/etc/php-fpm.conf:ro
+      - ./srv/php/php.ini-production:/usr/local/php/lib/php.ini:ro
+      - ./srv/nginx/conf.d:/usr/local/nginx/conf.d
+      - /www/api.yi-insurance.com:/www/api.yi-insurance.com
     restart: always
 
   mysql:
@@ -40,22 +20,22 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - ./data/mysql:/var/lib/mysql
+      - /data/mysql:/var/lib/mysql
       - ./srv/mysql/config/my.cnf:/etc/mysql/my.cnf
     environment:
-      MYSQL_ROOT_PASSWORD: samego
-      MYSQL_USER: samego
-      MYSQL_PASSWORD: samego
-      MYSQL_DATABASE: samego
+      MYSQL_ROOT_PASSWORD: 123!@#qwe
+      MYSQL_USER: tsb
+      MYSQL_PASSWORD: 123!@#qwe
+      MYSQL_DATABASE: tsb_dev
     restart: always
     
   redis:
     container_name: redis
     image: redis:4.0.12
-    command: ["redis-server", "/etc/redis/redis.conf","--appendonly", "yes"]
+    command: ["redis-server", "/etc/redis/redis.conf","--protected-mode","no","--appendonly", "yes"]
     ports:
-      - 6389:6379
+      - 6388:6388
     volumes:
-      - ./data/redis:/data
+      - /data/redis:/data
       - ./srv/redis/redis.conf:/etc/redis/redis.conf:ro
     restart: always
