@@ -1,76 +1,14 @@
-# gogs-drone-docker
-For the better CI as well as CD using gogs &amp; drone &amp; docker
-
-
-
-- **About**
-
-  - [`gogs`](https://gogs.io/)
-
-    > Gogs is a painless self-hosted Git service
-
-  - [`drone`](https://drone.io/) 
-
-    > Drone is a Continuous Delivery platform built on Docker, written in Go
-
-  - `docker` 
-
+`No matter where I am, I will reply you immediately when I see the email.My Email: echo "YUBzYW1lZ28uY29tCg==" | base64 -d`
 
 ___
 
+## Docker-compose集合
 
+> 每一个集合项独立拥有一个`readme`文件
 
-- **Precondition**
+| 容器名称 |             说明              |  更新日期  |
+| :------: | :---------------------------: | :--------: |
+| `lnmpr`  | `Nginx`+`MySQL`+`PHP`+`Redis` | 2018-12-29 |
+| `drone`  | `drone`+`gogs` for `CI / CD`  | 2018-12-29 |
+|          |                               |            |
 
-  - [x] installed docker , [If you haven't installed yet, click here.](https://docs.docker.com/install/)
-
-  - [x] installed docker-compose , [If you haven't installed yet, click here.](https://docs.docker.com/compose/install/)
-
-
-___
-
-
-
-- **Configure**
-
-  - create `DRONE_SECRET` by using next command
-
-    ```shell
-    openssl rand -hex 16
-    ```
-
-
-
-___
-
-
-
-- **Run**
-
-  ```shell
-  docker-compose up -d
-  ```
-
-
-
-___
-
-
-
-**How to use gogs**
-
-> open `https://{$ip}:3000` on brower
->
-> O(∩_∩)O哈哈~ , I prefer domain name access.
-
-
-
-___
-
-
-
-**How to use drone**
-
-> drone is core~ , get started is easy~
->
-> open `https://{$ip}:8000` on brower
