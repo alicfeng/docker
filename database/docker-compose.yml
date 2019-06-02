@@ -1,0 +1,27 @@
+version: "2"
+services:
+  mysql:
+    container_name: mysql
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    volumes:
+      - ./.data/mysql:/var/lib/mysql
+      - ./srv/mysql/config/my.cnf:/etc/mysql/my.cnf
+    environment:
+      MYSQL_ROOT_PASSWORD: samego
+      MYSQL_USER: samego
+      MYSQL_PASSWORD: samego
+      MYSQL_DATABASE: samego
+    restart: always
+    
+  redis:
+    container_name: redis
+    image: redis:4.0.12
+    command: ["redis-server", "/etc/redis/redis.conf","--protected-mode","no","--appendonly", "yes"]
+    ports:
+      - 6388:6388
+    volumes:
+      - ./.data/redis:/data
+      - ./srv/redis/redis.conf:/etc/redis/redis.conf:ro
+    restart: always
