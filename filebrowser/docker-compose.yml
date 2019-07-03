@@ -1,0 +1,13 @@
+version: "2"
+services:
+  filebrowser:
+    container_name: filebrowser
+    image: filebrowser/filebrowser
+    volumes:
+      - ./srv/config.json:/filebrowser.json:ro
+      - ./data/database.db:/database.db
+      - /home/alicfeng/Nutstore Files/我的坚果云/工作/极视角/:/srv/
+      - /home/alicfeng/.ssha/:/srv/01账号相关/ssh
+    ports:
+            - 9080:80
+    restart: always
